@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Reward BD - Earn Rewards</title>
 
   <!-- Telegram Mini App SDK -->
@@ -46,6 +47,87 @@
       font-size: 14px;
     }
 
+    .auth-box {
+      margin-top: 20px;
+      padding: 18px;
+      background: #26364b;
+      border-radius: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #101827;
+      color: white;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #8d9bad;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    #registerBtn {
+      background: #38e8a5;
+      color: #101827;
+    }
+
+    #loginBtn {
+      background: #4f8cff;
+      color: white;
+    }
+
+    #googleBtn {
+      background: white;
+      color: #222;
+    }
+
+    #logoutBtn {
+      background: #7b344b;
+      color: white;
+    }
+
+    #watchBtn {
+      background: #38e8a5;
+      color: #101827;
+    }
+
+    #watchBtn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #withdrawBtn {
+      background: #33465f;
+      color: white;
+    }
+
+    .switch-text {
+      margin-top: 15px;
+      color: #b9c5d6;
+      font-size: 13px;
+    }
+
+    .user-email {
+      color: #38e8a5;
+      font-size: 14px;
+      word-break: break-all;
+    }
+
     .balance-box {
       background: #26364b;
       padding: 20px;
@@ -65,32 +147,6 @@
       margin-top: 10px;
     }
 
-    button {
-      width: 100%;
-      border: none;
-      padding: 15px;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    #watchBtn {
-      background: #38e8a5;
-      color: #101827;
-    }
-
-    #watchBtn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    #withdrawBtn {
-      background: #33465f;
-      color: white;
-    }
-
     #status {
       color: #ffd166;
       font-size: 14px;
@@ -104,20 +160,99 @@
       color: #aab7c8;
       line-height: 1.6;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .divider {
+      margin: 15px 0;
+      color: #718096;
+      font-size: 13px;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-    
-    <h1>Reward BD</h1>
-    <p class="subtitle">Watch Ads & Earn Rewards</p>
+<div class="container">
+
+  <h1>Reward BD</h1>
+  <p class="subtitle">Watch Ads & Earn Rewards</p>
+
+
+  <!-- =========================
+       REGISTER / LOGIN SECTION
+       ========================= -->
+
+  <div id="authSection" class="auth-box">
+
+    <h3 id="authTitle">Create Account</h3>
+
+    <input
+      type="email"
+      id="emailInput"
+      placeholder="Email address"
+      autocomplete="email"
+    >
+
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Password"
+      autocomplete="new-password"
+    >
+
+    <button id="registerBtn">
+      Create Account
+    </button>
+
+    <button id="loginBtn">
+      Login
+    </button>
+
+    <div class="divider">
+      ───── OR ─────
+    </div>
+
+    <button id="googleBtn">
+      🔵 Continue with Google
+    </button>
+
+    <p id="authStatus" class="status"></p>
+
+  </div>
+
+
+  <!-- =========================
+       USER DASHBOARD
+       ========================= -->
+
+  <div id="dashboard" class="hidden">
+
+    <p>
+      Logged in as:
+    </p>
+
+    <p id="userEmail" class="user-email"></p>
+
+    <button id="logoutBtn">
+      Logout
+    </button>
+
 
     <div class="balance-box">
-      <div class="balance-title">আপনার ব্যালেন্স</div>
-      <div class="balance" id="balance">100 Points</div>
+
+      <div class="balance-title">
+        আপনার ডেমো ব্যালেন্স
+      </div>
+
+      <div class="balance" id="balance">
+        100 Points
+      </div>
+
     </div>
+
 
     <button id="watchBtn">
       ▶ Watch Ad
@@ -131,86 +266,39 @@
       Withdraw
     </button>
 
-    <p class="notice">
-      বিজ্ঞাপন পাওয়া Monetag-এর availability ও eligibility-এর ওপর
-      নির্ভর করে। এই পেজের ব্যালেন্স ডেমো; এটি প্রকৃত অর্থ নয়।
-      প্রকৃত Reward এবং Withdraw চালু করতে নিরাপদ সার্ভার ও
-      যাচাইকৃত Monetag postback প্রয়োজন।
-    </p>
-
   </div>
 
-  <script>
-    // Telegram Mini App initialize
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
-    }
 
-    const watchBtn = document.getElementById("watchBtn");
-    const statusEl = document.getElementById("status");
-    const balanceEl = document.getElementById("balance");
-    const withdrawBtn = document.getElementById("withdrawBtn");
+  <p class="notice">
+    এই ওয়েবসাইটে Firebase Authentication ব্যবহার করা হয়েছে।
+    বর্তমান Points শুধুমাত্র ডেমো। প্রকৃত অর্থ প্রদান বা Withdraw
+    চালু করতে নিরাপদ server-side verification প্রয়োজন।
+  </p>
 
-    let demoPoints = 0;
+</div>
 
-    watchBtn.addEventListener("click", async function () {
 
-      watchBtn.disabled = true;
-      statusEl.textContent = "বিজ্ঞাপন লোড হচ্ছে...";
+<!-- =====================================
+     FIREBASE
+     ===================================== -->
 
-      try {
-
-        if (typeof show_11878821 !== "function") {
-          throw new Error("Monetag SDK not loaded");
-        }
-
-        await show_11878821();
-
-        // Demo only: this is NOT verified ad completion.
-        statusEl.textContent =
-          "বিজ্ঞাপনের অনুরোধ সম্পন্ন হয়েছে। ডেমো পয়েন্ট দেওয়া হয়নি।";
-
-      } catch (error) {
-
-        console.error("Monetag error:", error);
-
-        statusEl.textContent =
-          "বিজ্ঞাপন দেখানো যায়নি। পরে আবার চেষ্টা করুন।";
-
-      } finally {
-
-        watchBtn.disabled = false;
-
-      }
-    });
-
-    withdrawBtn.addEventListener("click", function () {
-      alert(
-        "Withdraw এখনো চালু হয়নি। প্রকৃত টাকা তোলার জন্য নিরাপদ সার্ভার ও যাচাইকরণ প্রয়োজন।"
-      );
-    });
-    const firebaseConfig = {
-  apiKey: "AIzaSyDqKPt8PWY1nRpzDeSk_8PFxKBT7Uo6wcA",
-  authDomain: "reward-bd24.firebaseapp.com",
-  projectId: "reward-bd24",
-  storageBucket: "reward-bd24.firebasestorage.app",
-  messagingSenderId: "227608800218",
-  appId: "1:227608800218:web:4732bc4e51560c6336aee3"
-};
-  </script>
-
-  <!-- Firebase SDK -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
   import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
     onAuthStateChanged,
     signOut
   } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 
   import {
     getFirestore,
@@ -220,21 +308,553 @@
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+
+  /* =========================
+     FIREBASE CONFIG
+     ========================= */
+
   const firebaseConfig = {
-    apiKey: "AIzaSyDqKPt8PWY1nRpzDeSk_8PFxKBT7Uo6wcA",
+
+    apiKey: "AIzaSyDqKPt8PWY1nRpzDeSk_8PFxKBT7Uo6wc3",
+
     authDomain: "reward-bd24.firebaseapp.com",
+
     projectId: "reward-bd24",
+
     storageBucket: "reward-bd24.firebasestorage.app",
+
     messagingSenderId: "227608800218",
+
     appId: "1:227608800218:web:4732bc4e51560c6336aee3"
+
   };
+
+
+  /* =========================
+     INITIALIZE FIREBASE
+     ========================= */
 
   const app = initializeApp(firebaseConfig);
 
   const auth = getAuth(app);
+
   const db = getFirestore(app);
 
-  console.log("Firebase connected:", app.name);
+  const googleProvider = new GoogleAuthProvider();
+
+
+  /* =========================
+     HTML ELEMENTS
+     ========================= */
+
+  const authSection =
+    document.getElementById("authSection");
+
+  const dashboard =
+    document.getElementById("dashboard");
+
+  const emailInput =
+    document.getElementById("emailInput");
+
+  const passwordInput =
+    document.getElementById("passwordInput");
+
+  const registerBtn =
+    document.getElementById("registerBtn");
+
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+  const googleBtn =
+    document.getElementById("googleBtn");
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+  const userEmail =
+    document.getElementById("userEmail");
+
+  const authStatus =
+    document.getElementById("authStatus");
+
+  const balanceEl =
+    document.getElementById("balance");
+
+  const watchBtn =
+    document.getElementById("watchBtn");
+
+  const statusEl =
+    document.getElementById("status");
+
+  const withdrawBtn =
+    document.getElementById("withdrawBtn");
+
+
+  /* =========================
+     TELEGRAM
+     ========================= */
+
+  if (
+    window.Telegram &&
+    window.Telegram.WebApp
+  ) {
+
+    const tg =
+      window.Telegram.WebApp;
+
+    tg.ready();
+
+    tg.expand();
+
+  }
+
+
+  /* =========================
+     CREATE USER FIRESTORE DATA
+     ========================= */
+
+  async function createUserDocument(user) {
+
+    const userRef =
+      doc(db, "users", user.uid);
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if (!userSnap.exists()) {
+
+      await setDoc(userRef, {
+
+        email: user.email || "",
+
+        balance: 100,
+
+        adsCompleted: 0,
+
+        cooldownUntil: null,
+
+        createdAt: serverTimestamp()
+
+      });
+
+    }
+
+  }
+
+
+  /* =========================
+     LOAD USER DATA
+     ========================= */
+
+  async function loadUserData(user) {
+
+    const userRef =
+      doc(db, "users", user.uid);
+
+    const userSnap =
+      await getDoc(userRef);
+
+
+    if (userSnap.exists()) {
+
+      const data =
+        userSnap.data();
+
+      const balance =
+        typeof data.balance === "number"
+          ? data.balance
+          : 100;
+
+      balanceEl.textContent =
+        balance + " Points";
+
+    }
+
+  }
+
+
+  /* =========================
+     REGISTER
+     ========================= */
+
+  registerBtn.addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        emailInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!email || !password) {
+
+        authStatus.textContent =
+          "Email এবং Password দিন।";
+
+        return;
+
+      }
+
+
+      if (password.length < 6) {
+
+        authStatus.textContent =
+          "Password কমপক্ষে 6 characters হতে হবে।";
+
+        return;
+
+      }
+
+
+      registerBtn.disabled = true;
+
+      authStatus.textContent =
+        "Account তৈরি হচ্ছে...";
+
+
+      try {
+
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+        await createUserDocument(
+          result.user
+        );
+
+
+        authStatus.textContent =
+          "Account তৈরি হয়েছে।";
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        if (
+          error.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          authStatus.textContent =
+            "এই Email দিয়ে আগে থেকেই account আছে।";
+
+        }
+
+        else if (
+          error.code ===
+          "auth/invalid-email"
+        ) {
+
+          authStatus.textContent =
+            "Email address সঠিক নয়।";
+
+        }
+
+        else {
+
+          authStatus.textContent =
+            error.message;
+
+        }
+
+      }
+
+      finally {
+
+        registerBtn.disabled = false;
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     LOGIN
+     ========================= */
+
+  loginBtn.addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        emailInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!email || !password) {
+
+        authStatus.textContent =
+          "Email এবং Password দিন।";
+
+        return;
+
+      }
+
+
+      loginBtn.disabled = true;
+
+      authStatus.textContent =
+        "Login হচ্ছে...";
+
+
+      try {
+
+        const result =
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+        await createUserDocument(
+          result.user
+        );
+
+
+        authStatus.textContent =
+          "Login successful.";
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        authStatus.textContent =
+          "Login করা যায়নি। Email অথবা Password পরীক্ষা করুন।";
+
+      }
+
+      finally {
+
+        loginBtn.disabled = false;
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     GOOGLE LOGIN
+     ========================= */
+
+  googleBtn.addEventListener(
+    "click",
+    async () => {
+
+      googleBtn.disabled = true;
+
+      authStatus.textContent =
+        "Google Login হচ্ছে...";
+
+
+      try {
+
+        const result =
+          await signInWithPopup(
+            auth,
+            googleProvider
+          );
+
+
+        await createUserDocument(
+          result.user
+        );
+
+
+        authStatus.textContent =
+          "Google Login successful.";
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        authStatus.textContent =
+          "Google Login করা যায়নি।";
+
+      }
+
+      finally {
+
+        googleBtn.disabled = false;
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     LOGOUT
+     ========================= */
+
+  logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      try {
+
+        await signOut(auth);
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     AUTH STATE
+     ========================= */
+
+  onAuthStateChanged(
+    auth,
+    async (user) => {
+
+      if (user) {
+
+        authSection.classList.add(
+          "hidden"
+        );
+
+        dashboard.classList.remove(
+          "hidden"
+        );
+
+
+        userEmail.textContent =
+          user.email || "Google User";
+
+
+        await createUserDocument(
+          user
+        );
+
+
+        await loadUserData(
+          user
+        );
+
+      }
+
+      else {
+
+        authSection.classList.remove(
+          "hidden"
+        );
+
+        dashboard.classList.add(
+          "hidden"
+        );
+
+        userEmail.textContent = "";
+
+        balanceEl.textContent =
+          "100 Points";
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     WATCH AD
+     ========================= */
+
+  watchBtn.addEventListener(
+    "click",
+    async function () {
+
+      watchBtn.disabled = true;
+
+      statusEl.textContent =
+        "বিজ্ঞাপন লোড হচ্ছে...";
+
+
+      try {
+
+        if (
+          typeof show_11878821 !==
+          "function"
+        ) {
+
+          throw new Error(
+            "Monetag SDK not loaded"
+          );
+
+        }
+
+
+        await show_11878821();
+
+
+        statusEl.textContent =
+          "বিজ্ঞাপনের অনুরোধ সম্পন্ন হয়েছে। ডেমো Points পরিবর্তন করা হয়নি।";
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Monetag error:",
+          error
+        );
+
+
+        statusEl.textContent =
+          "বিজ্ঞাপন দেখানো যায়নি। পরে আবার চেষ্টা করুন।";
+
+      }
+
+      finally {
+
+        watchBtn.disabled = false;
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     WITHDRAW
+     ========================= */
+
+  withdrawBtn.addEventListener(
+    "click",
+    function () {
+
+      alert(
+        "Withdraw এখনো চালু হয়নি। বর্তমান Points শুধুমাত্র Demo।"
+      );
+
+    }
+  );
+
+
 </script>
+
 </body>
 </html>
