@@ -201,5 +201,40 @@
 };
   </script>
 
+  <!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqKPt8PWY1nRpzDeSk_8PFxKBT7Uo6wcA",
+    authDomain: "reward-bd24.firebaseapp.com",
+    projectId: "reward-bd24",
+    storageBucket: "reward-bd24.firebasestorage.app",
+    messagingSenderId: "227608800218",
+    appId: "1:227608800218:web:4732bc4e51560c6336aee3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("Firebase connected:", app.name);
+</script>
 </body>
 </html>
