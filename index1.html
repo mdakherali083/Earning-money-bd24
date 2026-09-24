@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src='//libtl.com/sdk.js' data-zone='11878821' data-sdk='show_11878821'></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#14532d">
@@ -139,6 +140,31 @@
       updateBalance();
       statusEl.textContent = "Demo balance refreshed.";
     });
+    const watchBtn = document.getElementById("watchBtn");
+const statusEl = document.getElementById("status");
+
+watchBtn.addEventListener("click", async () => {
+  watchBtn.disabled = true;
+  statusEl.textContent = "বিজ্ঞাপন লোড হচ্ছে...";
+
+  try {
+    await show_1878821({
+      ymid: String(
+        window.Telegram?.WebApp?.initDataUnsafe?.user?.id || "demo"
+      ),
+      requestVar: "reward_button"
+    });
+
+    statusEl.textContent =
+      "বিজ্ঞাপন সম্পন্ন হয়েছে।";
+
+  } catch (error) {
+    statusEl.textContent =
+      "বিজ্ঞাপন দেখানো যায়নি। আবার চেষ্টা করুন।";
+  } finally {
+    watchBtn.disabled = false;
+  }
+});
   </script>
 </body>
 </html>
